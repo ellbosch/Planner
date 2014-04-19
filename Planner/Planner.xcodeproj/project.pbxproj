@@ -23,6 +23,7 @@
 		295583391902F945004704C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 295583371902F945004704C8 /* InfoPlist.strings */; };
 		2955833B1902F945004704C8 /* PlannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2955833A1902F945004704C8 /* PlannerTests.m */; };
 		295583451902F971004704C8 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295583441902F971004704C8 /* Storyboard.storyboard */; };
+		295583481902FAA4004704C8 /* MRVSetAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 295583471902FAA4004704C8 /* MRVSetAlarmViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		295583381902F945004704C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2955833A1902F945004704C8 /* PlannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlannerTests.m; sourceTree = "<group>"; };
 		295583441902F971004704C8 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		295583461902FAA4004704C8 /* MRVSetAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRVSetAlarmViewController.h; sourceTree = "<group>"; };
+		295583471902FAA4004704C8 /* MRVSetAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRVSetAlarmViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 			children = (
 				295583201902F945004704C8 /* MRVAppDelegate.h */,
 				295583441902F971004704C8 /* Storyboard.storyboard */,
+				295583461902FAA4004704C8 /* MRVSetAlarmViewController.h */,
+				295583471902FAA4004704C8 /* MRVSetAlarmViewController.m */,
 				295583211902F945004704C8 /* MRVAppDelegate.m */,
 				295583261902F945004704C8 /* Images.xcassets */,
 				295583231902F945004704C8 /* Planner.xcdatamodeld */,
@@ -256,6 +261,7 @@
 				295583221902F945004704C8 /* MRVAppDelegate.m in Sources */,
 				2955831E1902F945004704C8 /* main.m in Sources */,
 				295583251902F945004704C8 /* Planner.xcdatamodeld in Sources */,
+				295583481902FAA4004704C8 /* MRVSetAlarmViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +462,7 @@
 				295583401902F945004704C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		295583411902F945004704C8 /* Build configuration list for PBXNativeTarget "PlannerTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +471,7 @@
 				295583431902F945004704C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

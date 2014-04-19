@@ -7,6 +7,7 @@
 //
 
 #import "MRVAppDelegate.h"
+#import "MRVSetAlarmViewController.h"
 
 @implementation MRVAppDelegate
 
@@ -16,10 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    //MRVSetAlarmViewController *viewController = [[MRVSetAlarmViewController alloc] initWithNibName:@"MRVSetAlarmViewController" bundle:nil];
+    //self.window.rootViewController = viewController;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     return YES;
 }
 
@@ -63,6 +63,10 @@
             abort();
         } 
     }
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"alert body: %@", notification.alertBody);
 }
 
 #pragma mark - Core Data stack
