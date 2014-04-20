@@ -74,7 +74,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </view>
                     <navigationItem key="navigationItem" id="180-Fr-2kV"/>
                     <connections>
-                        <outlet property="datePicker" destination="4vW-m6-fIp" id="iqG-vW-wEZ"/>
+                        <outlet property="alarmDatePicker" destination="4vW-m6-fIp" id="UCI-qQ-mEY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZH-hO-DyA" userLabel="First Responder" sceneMemberID="firstResponder"/>

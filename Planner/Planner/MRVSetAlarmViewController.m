@@ -11,12 +11,16 @@
 
 @interface MRVSetAlarmViewController ()
 {
-
+    __weak IBOutlet UIDatePicker *alarmDatePicker;
+    
+    
 }
 
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) NSString *userSelectedTime;
-//@property (nonatomic, strong) AlarmEnabledViewController *alarmEnabledView;
+@property (nonatomic, strong) NSDate *userSelectedDate;
+
+// date picker
+- (void)pickerValueChanged:(id)sender;
 
 @end
 
@@ -35,9 +39,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _datePicker = [[UIDatePicker alloc] init];
-    _datePicker.backgroundColor = [UIColor whiteColor];
-    _datePicker.datePickerMode = UIDatePickerModeTime;
+    [alarmDatePicker addTarget:self
+                    action:@selector(pickerValueChanged:)
+          forControlEvents:UIControlEventValueChanged];
+    alarmDatePicker.backgroundColor = [UIColor whiteColor];
+    alarmDatePicker.datePickerMode = UIDatePickerModeTime;
+    alarmDatePicker.timeZone = [NSTimeZone localTimeZone];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,10 +58,21 @@
 - (IBAction)setAlarmButtonPress:(id)sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
-    _userSelectedTime = [dateFormatter stringFromDate:_datePicker.date];
-    NSLog(@"date picker: %@", _datePicker.date);
-    NSLog(@"time: %@", _userSelectedTime);
+    _userSelectedTime = [dateFormatter stringFromDate:_userSelectedDate];
     
+    if ([_userSelectedDate compare:[NSDate date]] == NSOrderedAscending) {
+        // Selected time is in the past
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:1];
+        NSDate *updatedDate = [[NSCalendar currentCalendar]
+                               dateByAddingComponents:dateComponents
+                               toDate:_userSelectedDate
+                               options:0];
+        _userSelectedDate = updatedDate;
+    }
+    
+    NSLog(@"user selected date: %@", _userSelectedDate);
+    NSLog(@"user selected time: %@", _userSelectedTime);
     /*
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = _datePicker.date;
@@ -67,6 +86,13 @@
     AlarmEnabledViewController *alarmEnabledViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmEnabledViewController"];
     alarmEnabledViewController.alarmTimeString = _userSelectedTime;
     [self presentViewController:alarmEnabledViewController animated:YES completion:nil];
+}
+
+- (void)pickerValueChanged:(id)sender
+{
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    _userSelectedDate = [sender date];
 }
 
 
