@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="h1o-u5-tFQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="h1o-u5-tFQ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -67,7 +67,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </state>
                                 <connections>
                                     <action selector="setAlarmButtonPress:" destination="9um-FS-w1e" eventType="touchUpInside" id="5cq-pY-hh0"/>
-                                    <segue destination="uGm-BK-4Wc" kind="modal" identifier="alarmEnabled" id="zqw-X1-eSu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,7 +84,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Alarm Enabled View Controller-->
         <scene sceneID="Gmv-qt-fin">
             <objects>
-                <viewController id="uGm-BK-4Wc" customClass="AlarmEnabledViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="alarmEnabledViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uGm-BK-4Wc" customClass="AlarmEnabledViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="42k-9m-PWi"/>
                         <viewControllerLayoutGuide type="bottom" id="Tkn-gJ-8IP"/>

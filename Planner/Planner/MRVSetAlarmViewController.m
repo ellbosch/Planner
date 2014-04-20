@@ -7,10 +7,11 @@
 //
 
 #import "MRVSetAlarmViewController.h"
+#import "AlarmEnabledViewController.h"
 
 @interface MRVSetAlarmViewController ()
 {
-    AlarmEnabledViewController *alarmEnabledView;
+
 }
 
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
@@ -62,18 +63,10 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
      */
     
-    [self performSegueWithIdentifier:@"alarmEnabled" sender:self];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"alarmEnabled"]) {
-        
-        NSLog(@"Before segue: %@", _userSelectedTime);
-        
-        alarmEnabledView = (AlarmEnabledViewController *) segue.destinationViewController;
-        alarmEnabledView.alarmTimeString = _userSelectedTime;
-    }
+    UIStoryboard *storyBoard = self.storyboard;
+    AlarmEnabledViewController *alarmEnabledViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmEnabledViewController"];
+    alarmEnabledViewController.alarmTimeString = _userSelectedTime;
+    [self presentViewController:alarmEnabledViewController animated:YES completion:nil];
 }
 
 

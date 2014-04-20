@@ -31,6 +31,7 @@
     [super viewDidLoad];
     
     alarmTimeLabel.text = self.alarmTimeString;
+    NSLog(@"new view time: %@", self.alarmTimeString);
 }
 
 - (void)didReceiveMemoryWarning
