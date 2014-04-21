@@ -2,7 +2,4 @@ platform :ios, '7.1'
 
 workspace 'Planner'
  
-pod 'Mantle'
-pod 'LBBlurredImage'
-pod 'TSMessages'
-pod 'ReactiveCocoa'
+pod 'OpenWeatherMapAPI'

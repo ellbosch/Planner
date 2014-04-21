@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D7F6524AAF01422C819842CB"
-               BuildableName = "libPods.a"
-               BlueprintName = "Pods"
+               BlueprintIdentifier = "204AF554773D4824A48337BE"
+               BuildableName = "libPods-OpenWeatherMapAPI.a"
+               BlueprintName = "Pods-OpenWeatherMapAPI"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
