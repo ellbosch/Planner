@@ -18,9 +18,11 @@
 
 @property (nonatomic, strong) NSString *userSelectedTime;
 @property (nonatomic, strong) NSDate *userSelectedDate;
+@property (nonatomic, strong) MPMediaItemCollection *userSelectedSong;
 
 // date picker
 - (void)pickerValueChanged:(id)sender;
+
 
 @end
 
@@ -44,7 +46,8 @@
           forControlEvents:UIControlEventValueChanged];
     alarmDatePicker.backgroundColor = [UIColor whiteColor];
     alarmDatePicker.datePickerMode = UIDatePickerModeTime;
-    alarmDatePicker.timeZone = [NSTimeZone localTimeZone];
+    alarmDatePicker.timeZone = [NSTimeZone timeZoneWithName:@"America/New_York"];
+    _userSelectedSong = nil;
 
 }
 
@@ -70,23 +73,46 @@
                                options:0];
         _userSelectedDate = updatedDate;
     }
-    
+    	
     NSLog(@"user selected date: %@", _userSelectedDate);
     NSLog(@"user selected time: %@", _userSelectedTime);
+    
+    
+    
+    NSTimeInterval timeInterval = [_userSelectedDate timeIntervalSinceDate:[NSDate date]];
+    NSLog(@"time interval: %f", timeInterval);
+    
+    
+    
+    /*** UI Notifications only support 30 second, pre loaded music files, so switching over to NSTimer to manually trigger alarm ***/
     /*
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.fireDate = _datePicker.date;
-    notification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", _datePicker.date];
+    notification.fireDate = _userSelectedDate;
+    notification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", _userSelectedDate];
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.applicationIconBadgeNumber = 1;
+    notification.timeZone = [NSTimeZone timeZoneWithName:@"America/New_York"];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
      */
+    
     
     UIStoryboard *storyBoard = self.storyboard;
     AlarmEnabledViewController *alarmEnabledViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmEnabledViewController"];
     alarmEnabledViewController.alarmTimeString = _userSelectedTime;
+    alarmEnabledViewController.alarmTimeInterval = &(timeInterval);
+    alarmEnabledViewController.alarmSong = _userSelectedSong;
     [self presentViewController:alarmEnabledViewController animated:YES completion:nil];
 }
+
+- (IBAction)setMusicButtonPress:(id)sender {
+    MPMediaPickerController *musicPicker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
+    [musicPicker setDelegate:self];
+    [musicPicker setAllowsPickingMultipleItems:NO];
+    musicPicker.prompt = NSLocalizedString(@"Add song to play", "Prompt in media item picker");
+    [self presentViewController:musicPicker animated:YES completion:nil];
+}
+
+#pragma mark Date Picker
 
 - (void)pickerValueChanged:(id)sender
 {
@@ -94,6 +120,24 @@
     //dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     _userSelectedDate = [sender date];
 }
+
+#pragma mark Media Picker
+- (void) mediaPicker:(MPMediaPickerController *)mediaPicker
+   didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
+{
+    //respond to picking media item
+    //NSArray *items = mediaItemCollection.items;
+    //MPMediaItem *song = items[0];
+    _userSelectedSong = mediaItemCollection;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 
 @end

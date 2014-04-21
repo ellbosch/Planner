@@ -66,7 +66,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"alert body: %@", notification.alertBody);
+    NSLog(@"Received local notification");
 }
 
 #pragma mark - Core Data stack

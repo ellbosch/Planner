@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
-@interface AlarmEnabledViewController : UIViewController
+@interface AlarmEnabledViewController : UIViewController <AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) NSString *alarmTimeString;
+@property NSTimeInterval *alarmTimeInterval;
+@property MPMediaItemCollection *alarmSong;
 
 //- (void)setAlarmTime:(NSString *)time;
 
