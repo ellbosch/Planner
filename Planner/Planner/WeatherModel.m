@@ -48,7 +48,7 @@
              @"date": @"dt",
              @"locationName": @"name",
              @"humidity": @"main.humidity",
-             @"currentTemp": @"main.temp",
+             @"temperature": @"main.temp",
              @"tempHigh": @"main.temp_max",
              @"tempLow": @"main.temp_min",
              @"sunrise": @"sys.sunrise",
@@ -57,7 +57,7 @@
              @"condition": @"weather.main",
              @"icon": @"weather.icon",
              @"windBearing": @"wind.deg",
-             @"windSpeed": @"wind.speed"
+             @"windSpeed": @"wind.speed",
              };
 }
 
@@ -106,11 +106,6 @@
 + (NSValueTransformer *)iconJSONTransformer {
     return [self conditionDescriptionJSONTransformer];
 }
-
-
-
-
-
 
 
 @end

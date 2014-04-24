@@ -7,6 +7,8 @@
 //
 
 #import "WakeUpViewController.h"
+#import "WeatherManager.h"
+//#import <TSMessage.h>
 
 @interface WakeUpViewController ()
 
@@ -26,14 +28,18 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:NO];
+    
+    // Set view controller as default for TSMessages
+    //[TSMessage setDefaultViewController:self];
     
     // Set up view programatically
     self.screenHeight = [UIScreen mainScreen].bounds.size.height;
     self.tableView = [[UITableView alloc] init];
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    UIColor *alarmColorBackground = UIColorFromRGB(0x89C4F4);
+    self.tableView.backgroundColor = alarmColorBackground;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     // Change this to add lines between table cells
@@ -70,7 +76,7 @@
     // Setup temperature label in bottom left
     UILabel *temperatureLabel = [[UILabel alloc] initWithFrame:temperatureFrame];
     temperatureLabel.backgroundColor = [UIColor clearColor];
-    temperatureLabel.textColor = [UIColor blackColor];
+    temperatureLabel.textColor = [UIColor whiteColor];
     temperatureLabel.text = @"0°";
     temperatureLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:120];
     [header addSubview:temperatureLabel];
@@ -78,7 +84,7 @@
     // Setup high/low temperature label in bottom left
     UILabel *hiloLabel = [[UILabel alloc] initWithFrame:hiloFrame];
     hiloLabel.backgroundColor = [UIColor clearColor];
-    hiloLabel.textColor = [UIColor blackColor];
+    hiloLabel.textColor = [UIColor whiteColor];
     hiloLabel.text = @"0° / 0°";
     hiloLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:28];
     [header addSubview:hiloLabel];
@@ -86,7 +92,7 @@
     // Setup city label on top PLAN TO DELETE THIS THOUGHHH
     UILabel *cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
     cityLabel.backgroundColor = [UIColor clearColor];
-    cityLabel.textColor = [UIColor blackColor];
+    cityLabel.textColor = [UIColor whiteColor];
     cityLabel.text = @"Loading...";
     cityLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     cityLabel.textAlignment = NSTextAlignmentCenter;
@@ -96,14 +102,50 @@
     UILabel *conditionsLabel = [[UILabel alloc] initWithFrame:conditionsFrame];
     conditionsLabel.backgroundColor = [UIColor clearColor];
     conditionsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
-    conditionsLabel.textColor = [UIColor blackColor];
+    conditionsLabel.textColor = [UIColor whiteColor];
     [header addSubview:conditionsLabel];
     
     // Setup weather icon label on bottom left
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.contentMode = UIViewContentModeScaleAspectFit;
     iconView.backgroundColor = [UIColor clearColor];
+    //iconView.image = [UIImage imageNamed:@"weather-rain"];
     [header addSubview:iconView];
+    
+    // Display weather data
+    [[RACObserve([WeatherManager sharedManager], currentCondition)
+      deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(WeatherModel *newCondition) {
+         
+         if (newCondition) {
+             // Updates text labels with weather data
+             temperatureLabel.text = [NSString stringWithFormat:@"%.0f°",newCondition.temperature.floatValue];
+             conditionsLabel.text = [newCondition.condition capitalizedString];
+             cityLabel.text = [newCondition.locationName capitalizedString];
+             
+             iconView.image = [UIImage imageNamed:[newCondition imageName]];
+         }
+         
+         NSLog(@"RACObserve called");
+     }];
+    
+    RAC(hiloLabel, text) = [[RACSignal combineLatest:@[
+        RACObserve([WeatherManager sharedManager], currentCondition.tempHigh),
+        RACObserve([WeatherManager sharedManager], currentCondition.tempLow)]
+        
+        reduce:^(NSNumber *hi, NSNumber *low) {
+            return [NSString  stringWithFormat:@"%.0f° / %.0f°",hi.floatValue,low.floatValue];
+          }]
+
+            deliverOn:RACScheduler.mainThreadScheduler];
+    
+    NSLog(@"Viewdidload happened");
+
+    [[WeatherManager sharedManager] findCurrentLocation];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,6 +153,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+-(void)refreshView  {
+    
+    refreshing = YES;
+    //[topLabel setText:@"Refreshing..."];
+    
+    [[RACObserve([WeatherManager sharedManager], hourlyForecast)
+      deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(NSArray *newForecast) {
+         [self.tableView reloadData];
+     }];
+    
+    [[RACObserve([WeatherManager sharedManager], currentCondition)
+      deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(NSArray *newForecast) {
+         [self.tableView reloadData];
+     }];
+    
+    
+    [[RACObserve([WeatherManager sharedManager], dailyForecast)
+      deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(NSArray *newForecast) {
+         [self.tableView reloadData];
+     }];
+    
+    
+    [[WeatherManager sharedManager] findCurrentLocation];
+    
+    NSLog(@"Refreshing");
+}*/
 
 #pragma mark - UITableViewDataSource
 
@@ -135,7 +208,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //cell.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
     
     // TODO SETUP CELL
     

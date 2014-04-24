@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-HexColors.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -20,11 +15,6 @@
 			<false/>
 		</dict>
 		<key>Pods-Mantle.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-OpenWeatherMapAPI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,42 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>00976B1DFE4149C9ADEEC2A1</key>
+		<key>1E3B4B9B02B347119A4F20A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>16542347B8C54DE39CAA8D58</key>
+		<key>2390BC8715314809AE427B37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91A5413439A34FEDA3D499A3</key>
+		<key>4D0443D0415B42EB98A414CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A5F6FA29C65C4746B51E90ED</key>
+		<key>76BCDBF6C13848BAA4077198</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CCC801E4710C40F590ECD4AC</key>
+		<key>91C99CB796234D418D8E5DDA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6710E97350E4F7A86DB56FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8F8F357C6EB4591AA83C9F1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FA1791EE7F6842FB95917632</key>
+		<key>990CA4F3031F4607980A3FEE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
