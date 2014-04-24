@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-OpenWeatherMapAPI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>204AF554773D4824A48337BE</key>
+		<key>38EA74960DA5441E91244CB1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>730B00AA0D2E47F0975B24ED</key>
+		<key>4FB43E53664842AE81870605</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7F6524AAF01422C819842CB</key>
+		<key>B2750614C8E946B092093A0E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C594BF648FF14D4B96809A84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA098F04CCB74E46880BAC3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

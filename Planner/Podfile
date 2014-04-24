@@ -3,3 +3,5 @@ platform :ios, '7.1'
 workspace 'Planner'
  
 pod 'OpenWeatherMapAPI'
+pod 'Mantle'
+pod 'ReactiveCocoa'

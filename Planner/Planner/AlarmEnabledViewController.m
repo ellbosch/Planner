@@ -7,6 +7,7 @@
 //
 
 #import "AlarmEnabledViewController.h"
+#import "WakeUpViewController.h"
 
 @interface AlarmEnabledViewController ()
 {
@@ -16,6 +17,7 @@
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 - (void)fireTimer:(id)sender;
+- (IBAction)pressSimulateAlarmButton:(id)sender;
 
 @end
 
@@ -76,6 +78,14 @@
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
         [_audioPlayer play];
     }
+}
+
+#pragma mark - DELETE THIS IT SIMULATES ALARM WITH BUTTON
+
+- (IBAction)pressSimulateAlarmButton:(id)sender
+{
+    WakeUpViewController *wakeUpViewController = [[WakeUpViewController alloc] init];
+    [self presentViewController:wakeUpViewController animated:YES completion:nil];
 }
 
 @end

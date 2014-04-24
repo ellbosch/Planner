@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WakeUpViewController : UIViewController
+@interface WakeUpViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end

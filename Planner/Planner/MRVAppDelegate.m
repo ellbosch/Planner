@@ -20,6 +20,8 @@
     //MRVSetAlarmViewController *viewController = [[MRVSetAlarmViewController alloc] initWithNibName:@"MRVSetAlarmViewController" bundle:nil];
     //self.window.rootViewController = viewController;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    
     return YES;
 }
 
