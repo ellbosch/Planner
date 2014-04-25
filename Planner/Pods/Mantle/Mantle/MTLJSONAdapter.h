@@ -60,9 +60,6 @@ extern NSString * const MTLJSONAdapterErrorDomain;
 // +classForParsingJSONDictionary: returned nil for the given dictionary.
 extern const NSInteger MTLJSONAdapterErrorNoClassFound;
 
-// The provided JSONDictionary is not valid.
-extern const NSInteger MTLJSONAdapterErrorInvalidJSONDictionary;
-
 // Converts a MTLModel object to and from a JSON dictionary.
 @interface MTLJSONAdapter : NSObject
 
@@ -98,8 +95,7 @@ extern const NSInteger MTLJSONAdapterErrorInvalidJSONDictionary;
 //
 // JSONDictionary - A dictionary representing JSON data. This should match the
 //                  format returned by NSJSONSerialization. If this argument is
-//                  nil, the method returns nil and an error with code
-//                  MTLJSONAdapterErrorInvalidJSONDictionary.
+//                  nil, the method returns nil.
 // modelClass     - The MTLModel subclass to attempt to parse from the JSON.
 //                  This class must conform to <MTLJSONSerializing>. This
 //                  argument must not be nil.
@@ -120,17 +116,6 @@ extern const NSInteger MTLJSONAdapterErrorInvalidJSONDictionary;
 //
 // Returns a JSON dictionary, or nil if a serialization error occurred.
 - (NSDictionary *)JSONDictionary;
-
-// Looks up the JSON key path in the model's +propertyKeys.
-//
-// Subclasses may override this method to customize the adapter's seralizing
-// behavior. You should not call this method directly.
-//
-// key - The property key to retrieve the corresponding JSON key path for. This
-//       argument must not be nil.
-//
-// Returns a key path to use, or nil to omit the property from JSON.
-- (NSString *)JSONKeyPathForPropertyKey:(NSString *)key;
 
 @end
 

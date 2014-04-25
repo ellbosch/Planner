@@ -34,6 +34,9 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 	return result;
 }
 
+// An exception was thrown and caught.
+static const NSInteger MTLManagedObjectAdapterErrorExceptionThrown = 1;
+
 @interface MTLManagedObjectAdapter ()
 
 // The MTLModel subclass being serialized or deserialized.
@@ -305,7 +308,7 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 	Class fetchRequestClass = NSClassFromString(@"NSFetchRequest");
 	NSAssert(fetchRequestClass != nil, @"CoreData.framework must be linked to use MTLManagedObjectAdapter");
 
-	// If a uniquing predicate is provided, perform a fetch request to guarantee a unique managed object.
+	// If a uniquing predicate is provided, perform a fetch request to guarentee a unique managed object.
 	__block NSManagedObject *managedObject = nil;
 	NSPredicate *uniquingPredicate = [self uniquingPredicateForModel:model];
 
@@ -389,7 +392,7 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 			NSValueTransformer *attributeTransformer = [self entityAttributeTransformerForKey:propertyKey];
 			if (attributeTransformer != nil) transformedValue = [attributeTransformer transformedValue:transformedValue];
 
-			if (![managedObject validateValue:&transformedValue forKey:managedObjectKey error:&tmpError]) return NO;
+			if (![managedObject validateValue:&transformedValue forKey:managedObjectKey error:error]) return NO;
 			[managedObject setValue:transformedValue forKey:managedObjectKey];
 
 			return YES;
@@ -409,7 +412,7 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 				return nil;
 			}
 
-			return [self.class managedObjectFromModel:model insertingIntoContext:context processedObjects:processedObjects error:&tmpError];
+			return [self.class managedObjectFromModel:model insertingIntoContext:context processedObjects:processedObjects error:error];
 		};
 
 		BOOL (^serializeRelationship)(NSRelationshipDescription *) = ^(NSRelationshipDescription *relationshipDescription) {
@@ -431,9 +434,9 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 
 				id relationshipCollection;
 				if ([relationshipDescription isOrdered]) {
-					relationshipCollection = [NSMutableOrderedSet orderedSet];
+					relationshipCollection = [managedObject mutableOrderedSetValueForKey:managedObjectKey];
 				} else {
-					relationshipCollection = [NSMutableSet set];
+					relationshipCollection = [managedObject mutableSetValueForKey:managedObjectKey];
 				}
 
 				for (MTLModel *model in value) {
@@ -442,8 +445,6 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 
 					[relationshipCollection addObject:nestedObject];
 				}
-
-				[managedObject setValue:relationshipCollection forKey:managedObjectKey];
 			} else {
 				NSManagedObject *nestedObject = objectForRelationshipFromModel(value);
 				if (nestedObject == nil) return NO;
@@ -499,8 +500,8 @@ static id performInContext(NSManagedObjectContext *context, id (^block)(void)) {
 		}
 	}];
 
-	if (managedObject != nil && ![managedObject validateForInsert:&tmpError]) {
-		managedObject = performInContext(context, ^ id {
+	if (managedObject != nil && ![managedObject validateForInsert:error]) {
+		performInContext(context, ^ id {
 			[context deleteObject:managedObject];
 			return nil;
 		});
