@@ -27,8 +27,6 @@
 }
 
 - (RACSignal *)fetchJSONFromURL:(NSURL *)url {
-    NSLog(@"Fetching: %@",url.absoluteString);
-    
     // Return signal
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         // Fetch data from URL
@@ -39,6 +37,11 @@
                 NSError *jsonError = nil;
                 id json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
                 if (! jsonError) {
+                    
+                    
+                    NSLog(@"fetch JSON happened: %@", subscriber);
+                    
+                    
                     // Send subscriber to JSON serialized if JSON data exists
                     [subscriber sendNext:json];
                 }
@@ -68,6 +71,8 @@
     // Formats URL from CLLocationCoordinate2D object
     NSString *urlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=imperial",coordinate.latitude, coordinate.longitude];
     NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSLog(@"fetch current conditions happens");
     
     // Creates signal
     return [[self fetchJSONFromURL:url] map:^(NSDictionary *json) {

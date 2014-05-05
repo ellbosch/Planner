@@ -10,7 +10,12 @@
 #import "WeatherManager.h"
 //#import <TSMessage.h>
 
-@interface WakeUpViewController ()
+@interface WakeUpViewController () {
+    UILabel *temperatureLabel;
+    UILabel *hiloLabel;
+    UILabel *cityLabel;
+    UILabel *conditionsLabel;
+}
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) CGFloat screenHeight;
@@ -74,7 +79,7 @@
     self.tableView.tableHeaderView = header;
     
     // Setup temperature label in bottom left
-    UILabel *temperatureLabel = [[UILabel alloc] initWithFrame:temperatureFrame];
+    temperatureLabel = [[UILabel alloc] initWithFrame:temperatureFrame];
     temperatureLabel.backgroundColor = [UIColor clearColor];
     temperatureLabel.textColor = [UIColor whiteColor];
     temperatureLabel.text = @"0°";
@@ -82,7 +87,7 @@
     [header addSubview:temperatureLabel];
     
     // Setup high/low temperature label in bottom left
-    UILabel *hiloLabel = [[UILabel alloc] initWithFrame:hiloFrame];
+    hiloLabel = [[UILabel alloc] initWithFrame:hiloFrame];
     hiloLabel.backgroundColor = [UIColor clearColor];
     hiloLabel.textColor = [UIColor whiteColor];
     hiloLabel.text = @"0° / 0°";
@@ -90,7 +95,7 @@
     [header addSubview:hiloLabel];
     
     // Setup city label on top PLAN TO DELETE THIS THOUGHHH
-    UILabel *cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
+    cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
     cityLabel.backgroundColor = [UIColor clearColor];
     cityLabel.textColor = [UIColor whiteColor];
     cityLabel.text = @"Loading...";
@@ -99,7 +104,7 @@
     [header addSubview:cityLabel];
     
     // Setup conditions label on top
-    UILabel *conditionsLabel = [[UILabel alloc] initWithFrame:conditionsFrame];
+    conditionsLabel = [[UILabel alloc] initWithFrame:conditionsFrame];
     conditionsLabel.backgroundColor = [UIColor clearColor];
     conditionsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     conditionsLabel.textColor = [UIColor whiteColor];
@@ -111,6 +116,21 @@
     iconView.backgroundColor = [UIColor clearColor];
     //iconView.image = [UIImage imageNamed:@"weather-rain"];
     [header addSubview:iconView];
+    
+    // voice
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@"Good morning! This is just a test."];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
+    utterance.pitchMultiplier = 1.1;
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate - 0.3;
+    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+    [synth speakUtterance:utterance];
+    
+    
+    /*********************************************
+     
+        PROBLEM APPEARS TO BE DOWN HERE
+     
+     **********************************************/
     
     // Display weather data
     [[RACObserve([WeatherManager sharedManager], currentCondition)
@@ -153,37 +173,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
--(void)refreshView  {
-    
-    refreshing = YES;
-    //[topLabel setText:@"Refreshing..."];
-    
-    [[RACObserve([WeatherManager sharedManager], hourlyForecast)
-      deliverOn:RACScheduler.mainThreadScheduler]
-     subscribeNext:^(NSArray *newForecast) {
-         [self.tableView reloadData];
-     }];
-    
-    [[RACObserve([WeatherManager sharedManager], currentCondition)
-      deliverOn:RACScheduler.mainThreadScheduler]
-     subscribeNext:^(NSArray *newForecast) {
-         [self.tableView reloadData];
-     }];
-    
-    
-    [[RACObserve([WeatherManager sharedManager], dailyForecast)
-      deliverOn:RACScheduler.mainThreadScheduler]
-     subscribeNext:^(NSArray *newForecast) {
-         [self.tableView reloadData];
-     }];
-    
-    
-    [[WeatherManager sharedManager] findCurrentLocation];
-    
-    NSLog(@"Refreshing");
-}*/
 
 #pragma mark - UITableViewDataSource
 

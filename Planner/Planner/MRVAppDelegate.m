@@ -9,6 +9,7 @@
 #import "MRVAppDelegate.h"
 #import "MRVSetAlarmViewController.h"
 #import "WakeUpViewController.h"
+#import <TSMessage.h>
 
 @implementation MRVAppDelegate
 
@@ -22,14 +23,14 @@
     //self.window.rootViewController = viewController;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    /*
+
     // DELETE THIS ONLY FOR TESTING
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    /*self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // 1
     self.window.rootViewController = [[WakeUpViewController alloc] init];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    */
+    [TSMessage setDefaultViewController: self.window.rootViewController];*/
     
     return YES;
 }

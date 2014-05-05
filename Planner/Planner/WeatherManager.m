@@ -34,6 +34,8 @@
         _sharedManager = [[self alloc] init];
     });
     
+    NSLog(@"singleton instance called");
+    
     return _sharedManager;
 }
 
@@ -95,9 +97,11 @@
 
 - (RACSignal *)updateCurrentConditions
 {
-    NSLog(@"updatecurrentconditions happens");
     return [[self.client fetchCurrentConditionsForLocation:self.currentLocation.coordinate] doNext:^(WeatherModel *condition) {
         self.currentModel = condition;
+        NSLog(@"%@", condition);
+        
+        
     }];
 }
 
