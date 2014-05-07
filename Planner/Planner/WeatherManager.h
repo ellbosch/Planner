@@ -18,7 +18,7 @@
 
 // Data that gets stored
 @property (nonatomic, strong, readonly) CLLocation *currentLocation;
-@property (nonatomic, strong, readonly) WeatherModel *currentCondition;
+@property (nonatomic, strong) WeatherModel *currentCondition;
 @property (nonatomic, strong, readonly) NSArray *hourlyForecast;
 @property (nonatomic, strong, readonly) NSArray *dailyForecast;
 

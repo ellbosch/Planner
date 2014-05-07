@@ -61,26 +61,6 @@
              };
 }
 
-// Convert NSNumber to NSDate for date created by JSON parser
-+ (NSValueTransformer *)dateJSONTransformer {
-    // 1
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [NSDate dateWithTimeIntervalSince1970:str.floatValue];
-    } reverseBlock:^(NSDate *date) {
-        return [NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
-    }];
-}
-
-#pragma mark : weather data converters
-
-+ (NSValueTransformer *)sunriseJSONTransformer {
-    return [self dateJSONTransformer];
-}
-
-+ (NSValueTransformer *)sunsetJSONTransformer {
-    return [self dateJSONTransformer];
-}
-
 #define MPS_TO_MPH 2.23694f
 
 + (NSValueTransformer *)windSpeedJSONTransformer {
@@ -107,5 +87,20 @@
     return [self conditionDescriptionJSONTransformer];
 }
 
++ (NSValueTransformer *)dateJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+        return [NSDate dateWithTimeIntervalSince1970:str.floatValue];
+    } reverseBlock:^(NSDate *date) {
+        return [NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
+    }];
+}
+
++ (NSValueTransformer *)sunriseJSONTransformer {
+    return [self dateJSONTransformer];
+}
+
++ (NSValueTransformer *)sunsetJSONTransformer {
+    return [self dateJSONTransformer];
+}
 
 @end
