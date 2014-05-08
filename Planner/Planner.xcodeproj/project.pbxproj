@@ -25,6 +25,8 @@
 		295583451902F971004704C8 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 295583441902F971004704C8 /* Storyboard.storyboard */; };
 		295583481902FAA4004704C8 /* MRVSetAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 295583471902FAA4004704C8 /* MRVSetAlarmViewController.m */; };
 		8B2EB44E19085E9A0083F59C /* DailyForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2EB44D19085E9A0083F59C /* DailyForecast.m */; };
+		8B2EB4821908DD860083F59C /* WeatherClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2EB4811908DD860083F59C /* WeatherClient.m */; };
+		8B2EB4851908E64A0083F59C /* WeatherManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2EB4841908E64A0083F59C /* WeatherManager.m */; };
 		8B3B2AAA1904454300603E85 /* AlarmEnabledViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3B2AA91904454300603E85 /* AlarmEnabledViewController.m */; };
 		8B3B2AB31905582900603E85 /* WakeUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3B2AB21905582900603E85 /* WakeUpViewController.m */; };
 		8B3B2AB519055A6C00603E85 /* Constellation.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 8B3B2AB419055A6C00603E85 /* Constellation.m4r */; };
@@ -68,6 +70,10 @@
 		763A0F38016A427E8A0B89FA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8B2EB44C19085E9A0083F59C /* DailyForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyForecast.h; sourceTree = "<group>"; };
 		8B2EB44D19085E9A0083F59C /* DailyForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyForecast.m; sourceTree = "<group>"; };
+		8B2EB4801908DD860083F59C /* WeatherClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherClient.h; sourceTree = "<group>"; };
+		8B2EB4811908DD860083F59C /* WeatherClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherClient.m; sourceTree = "<group>"; };
+		8B2EB4831908E64A0083F59C /* WeatherManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherManager.h; sourceTree = "<group>"; };
+		8B2EB4841908E64A0083F59C /* WeatherManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherManager.m; sourceTree = "<group>"; };
 		8B3B2AA81904454300603E85 /* AlarmEnabledViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmEnabledViewController.h; sourceTree = "<group>"; };
 		8B3B2AA91904454300603E85 /* AlarmEnabledViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmEnabledViewController.m; sourceTree = "<group>"; };
 		8B3B2AB11905582900603E85 /* WakeUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WakeUpViewController.h; sourceTree = "<group>"; };
@@ -144,18 +150,23 @@
 				8B3B2AA91904454300603E85 /* AlarmEnabledViewController.m */,
 				295583201902F945004704C8 /* MRVAppDelegate.h */,
 				295583211902F945004704C8 /* MRVAppDelegate.m */,
-				295583441902F971004704C8 /* Storyboard.storyboard */,
 				295583461902FAA4004704C8 /* MRVSetAlarmViewController.h */,
 				295583471902FAA4004704C8 /* MRVSetAlarmViewController.m */,
-				295583261902F945004704C8 /* Images.xcassets */,
 				295583231902F945004704C8 /* Planner.xcdatamodeld */,
-				295583181902F945004704C8 /* Supporting Files */,
 				8B3B2AB11905582900603E85 /* WakeUpViewController.h */,
 				8B3B2AB21905582900603E85 /* WakeUpViewController.m */,
+				295583441902F971004704C8 /* Storyboard.storyboard */,
+				295583261902F945004704C8 /* Images.xcassets */,
 				8B3B2AB61905945600603E85 /* WeatherModel.h */,
 				8B3B2AB71905945600603E85 /* WeatherModel.m */,
 				8B2EB44C19085E9A0083F59C /* DailyForecast.h */,
 				8B2EB44D19085E9A0083F59C /* DailyForecast.m */,
+				8B2EB4801908DD860083F59C /* WeatherClient.h */,
+				8B2EB4811908DD860083F59C /* WeatherClient.m */,
+				8B2EB4831908E64A0083F59C /* WeatherManager.h */,
+				8B2EB4841908E64A0083F59C /* WeatherManager.m */,
+				8B2EB4861908E6680083F59C /* Weather files */,
+				295583181902F945004704C8 /* Supporting Files */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -188,6 +199,13 @@
 				295583371902F945004704C8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8B2EB4861908E6680083F59C /* Weather files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Weather files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +345,8 @@
 				2955831E1902F945004704C8 /* main.m in Sources */,
 				295583251902F945004704C8 /* Planner.xcdatamodeld in Sources */,
 				295583481902FAA4004704C8 /* MRVSetAlarmViewController.m in Sources */,
+				8B2EB4851908E64A0083F59C /* WeatherManager.m in Sources */,
+				8B2EB4821908DD860083F59C /* WeatherClient.m in Sources */,
 				8B2EB44E19085E9A0083F59C /* DailyForecast.m in Sources */,
 				8B3B2AAA1904454300603E85 /* AlarmEnabledViewController.m in Sources */,
 				8B3B2AB81905945600603E85 /* WeatherModel.m in Sources */,
