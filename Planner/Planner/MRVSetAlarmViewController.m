@@ -61,6 +61,12 @@
 - (IBAction)setAlarmButtonPress:(id)sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
+    
+    // set userSelectedDate to originally loaded date if datePicker never changes
+    if (_userSelectedDate == NULL) {
+        _userSelectedDate = [NSDate date];
+    }
+    
     _userSelectedTime = [dateFormatter stringFromDate:_userSelectedDate];
     
     if ([_userSelectedDate compare:[NSDate date]] == NSOrderedAscending) {
@@ -71,6 +77,7 @@
                                dateByAddingComponents:dateComponents
                                toDate:_userSelectedDate
                                options:0];
+        
         _userSelectedDate = updatedDate;
     }
     	

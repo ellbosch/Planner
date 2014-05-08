@@ -11,12 +11,8 @@
 //#import <TSMessage.h>
 
 @interface WakeUpViewController () {
-   /*
-    UILabel *temperatureLabel;
-    UILabel *hiloLabel;
-    UILabel *cityLabel;
-    UILabel *conditionsLabel;
-    */
+   // boolean value ensures weather narration only happens once
+    BOOL hasNarratedWeather;
 }
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -45,6 +41,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidLoad];
+    
+    // instantiate hasNarrated
+    hasNarratedWeather = false;
     
 	self.screenHeight = [UIScreen mainScreen].bounds.size.height;
     
@@ -122,6 +121,7 @@
     iconView.backgroundColor = [UIColor clearColor];
     [header addSubview:iconView];
     
+    // use ReactiveCocoa to subscribe for weather updates
     [[RACObserve([WeatherManager sharedManager], currentCondition)
       deliverOn:RACScheduler.mainThreadScheduler]
      subscribeNext:^(WeatherModel *newCondition) {
@@ -131,8 +131,10 @@
          
          iconView.image = [UIImage imageNamed:[newCondition imageName]];
          
-         
-         NSLog(@"temp in viewdidload: %@", newCondition.temperature);
+         // Call alarm narrator if valid weather data is sent
+         if (newCondition != NULL) {
+             [self narrateWeather:newCondition];
+         }
      }];
     
     RAC(hiloLabel, text) = [[RACSignal combineLatest:@[
@@ -156,15 +158,6 @@
      }];
     
     [[WeatherManager sharedManager] findCurrentLocation];
-
-    
-    // voice
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@"Good morning! This is just a test."];
-    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
-    utterance.pitchMultiplier = 1.1;
-    utterance.rate = AVSpeechUtteranceDefaultSpeechRate - 0.3;
-    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-    [synth speakUtterance:utterance];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -175,6 +168,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)narrateWeather:(WeatherModel *)condition
+{
+    if (!hasNarratedWeather) {
+        // set hasNarratedWeather to true so this won't call again
+        hasNarratedWeather = true;
+        
+        // set initial voice
+        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@"Good morning! This is just a test."];
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
+        utterance.pitchMultiplier = 1.1;
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate - 0.3;
+        AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+        [synth speakUtterance:utterance];
+    }
 }
 
 - (void)viewWillLayoutSubviews {
