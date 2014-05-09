@@ -176,8 +176,18 @@
         // set hasNarratedWeather to true so this won't call again
         hasNarratedWeather = true;
         
-        // set initial voice
-        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@"Good morning! This is just a test."];
+        // round current weather to integer
+        double currentTemp = [condition.temperature doubleValue] + 0.5;
+        int currentTempRounded = currentTemp;
+        
+        // initialize string to be narrated
+        NSString *greeting = @"Good morning!";
+        NSString *weatherDetails = [NSString stringWithFormat:@"The current temperature is %i degrees.", currentTempRounded];
+        
+        NSString *speech = [NSString stringWithFormat:@"%@ %@", greeting, weatherDetails];
+        
+        // set voice utterance
+        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
         utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
         utterance.pitchMultiplier = 1.1;
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate - 0.3;
