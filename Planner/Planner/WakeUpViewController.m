@@ -180,15 +180,33 @@
         // set hasNarratedWeather to true so this won't call again
         hasNarratedWeather = true;
         
-        // round current weather to integer
+        // round current temp and high temp to closest integer value
         double currentTemp = [condition.temperature doubleValue] + 0.5;
         int currentTempRounded = currentTemp;
+        double highTemp = [condition.tempHigh doubleValue] + 0.5;
+        int highTempRounded = highTemp;
         
-        // initialize string to be narrated
         NSString *greeting = @"Good morning!";
-        NSString *weatherDetails = [NSString stringWithFormat:@"The current temperature is %i degrees.", currentTempRounded];
+        NSString *forecast;
+        // create string that will include details about how much warmer/colder the day will get
+        if (highTempRounded > currentTempRounded) {
+            if (highTempRounded - currentTempRounded < 5) {
+                forecast = @"and will warm up a few degrees later today.";
+            } else {
+                forecast = [NSString stringWithFormat:@"and will warm up to %i degrees later today.", highTempRounded];
+            }
+        } else {
+            if (currentTempRounded - highTempRounded < 5) {
+                forecast = @"and will cool down a few degrees later today.";
+            } else {
+                forecast = [NSString stringWithFormat:@"and will cool down to %i degrees later today", highTempRounded];
+            }
+        }
         
-        NSString *speech = [NSString stringWithFormat:@"%@ %@", greeting, weatherDetails];
+        
+        NSString *weatherDetails = [NSString stringWithFormat:@"The current temperature is %i degrees, ", currentTempRounded];
+        
+        NSString *speech = [NSString stringWithFormat:@"%@ %@ %@", greeting, weatherDetails, forecast];
         
         // set voice utterance
         AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
