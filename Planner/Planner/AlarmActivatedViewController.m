@@ -8,13 +8,12 @@
 
 #import "AlarmActivatedViewController.h"
 #import "WakeUpViewController.h"
+#import "PastAlarmsViewController.h"
 
 @interface AlarmActivatedViewController ()
 {
     IBOutlet UILabel *currentTime;
 }
-
-- (IBAction)simulateUnlockingAlarm:(id)sender;
 
 @end
 
@@ -34,10 +33,18 @@
     [super viewDidLoad];
     
     // create UIGestureRecognizer, which is used to unlock the alarm
-    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(unlockAlarm)];
-    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:gestureRecognizer];
+    UISwipeGestureRecognizer *swipeToWeather = [[UISwipeGestureRecognizer alloc]
+                                                initWithTarget:self
+                                                action:@selector(unlockAlarm)];
+    
+    UISwipeGestureRecognizer *swipeToHome = [[UISwipeGestureRecognizer alloc]
+                                             initWithTarget:self
+                                             action:@selector(goHome)];
+    
+    swipeToWeather.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeToHome.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeToWeather];
+    [self.view addGestureRecognizer:swipeToHome];
     
     // instantiate clock label
     currentTime.adjustsFontSizeToFitWidth = YES;
@@ -60,18 +67,18 @@
     [self presentViewController:wakeUpViewController animated:YES completion:nil];
 }
 
+- (void)goHome {
+    UIStoryboard *storyBoard = self.storyboard;
+    PastAlarmsViewController *pastAlarmsViewController = (PastAlarmsViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"pastAlarmsViewController"];
+    [self presentViewController:pastAlarmsViewController animated:YES completion:NULL];
+}
+     
 - (void)updateTime:(id)sender
 {
     NSDate *StrDate = [NSDate date];
     NSDateFormatter *Dateformat = [[NSDateFormatter alloc]init];
     [Dateformat setDateFormat:@"HH:mm"];
     currentTime.text = [Dateformat stringFromDate:StrDate];
-}
-
-- (IBAction)simulateUnlockingAlarm:(id)sender
-{
-    WakeUpViewController *wakeUpViewController = [[WakeUpViewController alloc] init];
-    [self presentViewController:wakeUpViewController animated:YES completion:nil];
 }
 
 /*

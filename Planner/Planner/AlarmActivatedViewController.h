@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlarmActivatedViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface AlarmActivatedViewController : UIViewController <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 @end

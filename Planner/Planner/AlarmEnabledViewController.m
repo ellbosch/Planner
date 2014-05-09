@@ -18,11 +18,7 @@
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
-//- (void)fireTimer:(id)sender;
-
-
 - (void)alarmDeactivates;
-- (IBAction)pressSimulateAlarmButton:(id)sender;
 
 @end
 
@@ -89,7 +85,9 @@
 
 -(void)unlockAlarm
 {
-    NSLog(@"SWIPE DETECTION");
+    UIStoryboard *storyBoard = self.storyboard;
+    AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
+    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];
 }
 
 #pragma mark - Show Alarm Activated View
@@ -107,19 +105,13 @@
         NSLog(@"music path: %@", path);
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
         [_audioPlayer play];
-        [self pressSimulateAlarmButton:self];
+        [self unlockAlarm];
     }
     
     UIStoryboard *storyBoard = self.storyboard;
     AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
-    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];
-}
-
-- (IBAction)pressSimulateAlarmButton:(id)sender
-{
-    UIStoryboard *storyBoard = self.storyboard;
-    AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
-    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];
+    //[self presentViewController:alarmActivatedViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:alarmActivatedViewController animated:YES];
 }
 
 @end

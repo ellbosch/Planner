@@ -25,9 +25,9 @@
     
 
     // DELETE THIS ONLY FOR TESTING
-    /*self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // 1
-    self.window.rootViewController = [[WakeUpViewController alloc] init];
+   // self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //self.window.rootViewController = [[WakeUpViewController alloc] init];
+    /*
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [TSMessage setDefaultViewController: self.window.rootViewController];*/

@@ -10,6 +10,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface MRVSetAlarmViewController : UIViewController <MPMediaPickerControllerDelegate>
+@interface MRVSetAlarmViewController : UIViewController <MPMediaPickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

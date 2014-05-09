@@ -155,7 +155,8 @@
     [musicPicker setDelegate:self];
     [musicPicker setAllowsPickingMultipleItems:NO];
     musicPicker.prompt = NSLocalizedString(@"Add song to play", "Prompt in media item picker");
-    [self presentViewController:musicPicker animated:YES completion:nil];
+    //[self presentViewController:musicPicker animated:YES completion:nil];
+    [self.navigationController pushViewController:musicPicker animated:YES];
 }
 
 #pragma mark Date Picker

@@ -7,22 +7,22 @@
         <!--Navigation Controller-->
         <scene sceneID="2za-VO-IO5">
             <objects>
-                <navigationController definesPresentationContext="YES" id="h1o-u5-tFQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="pastAlarmsViewController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="h1o-u5-tFQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="16Z-ca-rKN">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="9um-FS-w1e" kind="relationship" relationship="rootViewController" id="2sx-Qn-iWE"/>
+                        <segue destination="IZ7-93-LBZ" kind="relationship" relationship="rootViewController" id="qzJ-zZ-WLt"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mue-UP-z4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-269" y="128"/>
+            <point key="canvasLocation" x="-767" y="110"/>
         </scene>
         <!--Set Alarm View Controller-->
         <scene sceneID="BuV-zN-0Lz">
             <objects>
-                <viewController id="9um-FS-w1e" customClass="MRVSetAlarmViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setAlarmViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9um-FS-w1e" customClass="MRVSetAlarmViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rSQ-Xa-etE"/>
                         <viewControllerLayoutGuide type="bottom" id="o06-Hq-Fx6"/>
@@ -109,16 +109,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <fontDescription key="fontDescription" type="system" pointSize="73"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7s-Fh-iP1">
-                                <rect key="frame" x="72" y="473" width="177" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Simulate Unlocking Alarm">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="simulateUnlockingAlarm:" destination="L8R-XG-pyE" eventType="touchUpInside" id="SdI-ek-TSs"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -130,7 +120,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1482" y="128"/>
         </scene>
-        <!--Past Alarms View Controller-->
+        <!--Past Alarms View Controller - Alarm List-->
         <scene sceneID="KEd-OU-5xP">
             <objects>
                 <tableViewController id="IZ7-93-LBZ" customClass="PastAlarmsViewController" sceneMemberID="viewController">
@@ -140,7 +130,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="alarmCell" id="J4l-pI-kzf">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J4l-pI-kzf" id="BVu-oa-xok">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -153,10 +143,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <outlet property="delegate" destination="IZ7-93-LBZ" id="ImJ-TW-jEA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Alarm List" id="WzQ-LP-gvw">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="Q2h-7j-nuk">
+                            <connections>
+                                <segue destination="9um-FS-w1e" kind="modal" id="DLV-Om-gVW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vSv-jC-427" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="256" y="890"/>
+            <point key="canvasLocation" x="-190" y="128"/>
         </scene>
         <!--Alarm Enabled View Controller-->
         <scene sceneID="Gmv-qt-fin">
@@ -184,16 +181,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6O-jr-gnb">
-                                <rect key="frame" x="73" y="429" width="174" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Simulate Alarm Going Off">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressSimulateAlarmButton:" destination="uGm-BK-4Wc" eventType="touchUpInside" id="8B6-wK-pyu"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="wake up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1l-hQ-Kgv">
                                 <rect key="frame" x="235" y="527" width="65" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -8,6 +8,7 @@
 
 #import "WakeUpViewController.h"
 #import "WeatherManager.h"
+#import "MRVSetAlarmViewController.h"
 
 @interface WakeUpViewController () {
    // boolean value ensures weather narration only happens once
@@ -20,6 +21,7 @@
 @property (nonatomic, assign) CGFloat screenHeight;
 @property (nonatomic, strong) NSDateFormatter *hourlyFormatter;
 @property (nonatomic, strong) NSDateFormatter *dailyFormatter;
+@property (nonatomic, strong) NSMutableArray *possibleGreetings;
 
 @end
 
@@ -43,6 +45,17 @@
     
     // instantiate hasNarrated and isLocked
     hasNarratedWeather = false;
+    
+    // create list of greetings
+    _possibleGreetings = [[NSMutableArray alloc] init];
+    [_possibleGreetings addObject:@"Top of the morning to you!"];
+    [_possibleGreetings addObject:@"Why, hello there!"];
+    [_possibleGreetings addObject:@"Greetings, master."];
+    [_possibleGreetings addObject:@"Get your arse out of bed!"];
+    [_possibleGreetings addObject:@"Ah, bullocks. It's time to get up."];
+    [_possibleGreetings addObject:@"Ah, bullocks. It's time to get up."];
+    [_possibleGreetings addObject:@"Crikey, you're still in bed? You were supposed to get up 30 minutes ago!"];
+    
     
 	self.screenHeight = [UIScreen mainScreen].bounds.size.height;
   /*
@@ -70,10 +83,14 @@
     CGRect headerFrame = [UIScreen mainScreen].bounds;
     CGFloat inset = 20;
     CGFloat temperatureHeight = 110;
+    CGFloat temperatureWidth = headerFrame.size.width - 2*inset;
     CGFloat hiloHeight = 40;
     CGFloat iconHeight = 30;
-    CGRect hiloFrame = CGRectMake(inset, headerFrame.size.height - hiloHeight, headerFrame.size.width - 2*inset, hiloHeight);
-    CGRect temperatureFrame = CGRectMake(inset, headerFrame.size.height - temperatureHeight - hiloHeight, headerFrame.size.width - 2*inset, temperatureHeight);
+    
+    CGPoint superCenter = CGPointMake(CGRectGetMidX([UIScreen mainScreen].bounds), CGRectGetMidY([UIScreen mainScreen].bounds));
+    CGRect temperatureFrame = CGRectMake(inset, superCenter.y - (temperatureHeight / 2), temperatureWidth, temperatureHeight);
+    CGRect hiloFrame = CGRectMake(inset, temperatureFrame.size.height + temperatureFrame.origin.y, headerFrame.size.width - 2*inset, hiloHeight);
+    
     CGRect iconFrame = CGRectMake(inset, temperatureFrame.origin.y - iconHeight, iconHeight, iconHeight);
     CGRect conditionsFrame = iconFrame;
     // make the conditions text a little smaller than the view
@@ -102,13 +119,21 @@
     [header addSubview:hiloLabel];
     
     // top
-    UILabel *cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
-    cityLabel.backgroundColor = [UIColor clearColor];
-    cityLabel.textColor = [UIColor whiteColor];
-    cityLabel.text = @"Loading...";
-    cityLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
-    cityLabel.textAlignment = NSTextAlignmentCenter;
-    [header addSubview:cityLabel];
+    UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 30)];
+    exitButton.backgroundColor = [UIColor clearColor];
+    [exitButton addTarget:self
+               action:@selector(returnHome)
+     forControlEvents:UIControlEventTouchUpInside];
+    [exitButton setTitle:@"Start Your Day" forState:UIControlStateNormal];
+    exitButton.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    exitButton.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+
+/*
+    exitButton.text.Color = [UIColor whiteColor];
+    exitButton.text = @"Loading...";
+    exitButton.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    exitButton.textAlignment = NSTextAlignmentCenter;*/
+    [header addSubview:exitButton];
     
     UILabel *conditionsLabel = [[UILabel alloc] initWithFrame:conditionsFrame];
     conditionsLabel.backgroundColor = [UIColor clearColor];
@@ -128,7 +153,7 @@
      subscribeNext:^(WeatherModel *newCondition) {
          temperatureLabel.text = [NSString stringWithFormat:@"%.0f°",newCondition.temperature.floatValue];
          conditionsLabel.text = [newCondition.condition capitalizedString];
-         cityLabel.text = [newCondition.locationName capitalizedString];
+        // cityLabel.text = [newCondition.locationName capitalizedString];
          
          iconView.image = [UIImage imageNamed:[newCondition imageName]];
          
@@ -186,9 +211,10 @@
         double highTemp = [condition.tempHigh doubleValue] + 0.5;
         int highTempRounded = highTemp;
         
-        NSString *greeting = @"Good morning!";
-        NSString *forecast;
+        NSString *greeting = [self getRandomGreeting];
+        
         // create string that will include details about how much warmer/colder the day will get
+        NSString *forecast;
         if (highTempRounded > currentTempRounded) {
             if (highTempRounded - currentTempRounded < 5) {
                 forecast = @"and will warm up a few degrees later today.";
@@ -206,7 +232,7 @@
         
         NSString *weatherDetails = [NSString stringWithFormat:@"The current temperature is %i degrees, ", currentTempRounded];
         
-        NSString *speech = [NSString stringWithFormat:@"%@ %@ %@", greeting, weatherDetails, forecast];
+        NSString *speech = [NSString stringWithFormat:@"%@ " ". %@ %@", greeting, weatherDetails, forecast];
         
         // set voice utterance
         AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
@@ -217,6 +243,21 @@
         [synth speakUtterance:utterance];
     }
 }
+
+// Return one of the many pre-loaded random greetings
+- (NSString *)getRandomGreeting
+{
+    NSString *greeting;
+    
+    int size =  (int) [_possibleGreetings count];
+    
+    int randomIndex = arc4random_uniform(size);
+    greeting = [_possibleGreetings objectAtIndex:randomIndex];
+    
+    return greeting;
+}
+
+#pragma mark - Table Layouts
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -311,10 +352,33 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGRect screenSize = CGRectMake(0, 0, [UIScreen mainScreen].bounds.origin.x, [UIScreen mainScreen].bounds.origin.y);
+    /*
     CGFloat height = scrollView.bounds.size.height;
     CGFloat position = MAX(scrollView.contentOffset.y, 0.0);
     CGFloat percent = MIN(position / height, 1.0);
-    self.blurredImageView.alpha = percent;
+    self.blurredImageView.alpha = percent;*/
+}
+
+- (void)returnHome
+{
+    //NSArray *viewControllers = self.navigationController.viewControllers;
+    //UIViewController *rootViewController = [viewControllers objectAtIndex:viewControllers.count - 2];
+    
+   // MRVSetAlarmViewController *root = (MRVSetAlarmViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+   // [self presentViewController:root animated:YES completion:NULL];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    /*
+    MRVSetAlarmViewController *setAlarmViewController = [[MRVSetAlarmViewController alloc] init];
+    setAlarmViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"setAlarmViewController"];
+    
+    NSLog(@"INSTANTIATE: %@", setAlarmViewController);
+    //MRVSetAlarmViewController *setAlarmViewController = (MRVSetAlarmViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"setAlarmViewController"];
+    //[self presentViewController:setAlarmViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:setAlarmViewController animated:YES];
+     */
 }
 
 @end

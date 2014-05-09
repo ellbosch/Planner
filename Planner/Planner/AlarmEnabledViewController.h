@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface AlarmEnabledViewController : UIViewController <AVAudioPlayerDelegate, UIGestureRecognizerDelegate>
+@interface AlarmEnabledViewController : UIViewController <AVAudioPlayerDelegate, UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSString *alarmTimeString;
 @property MPMediaItemCollection *alarmSong;
