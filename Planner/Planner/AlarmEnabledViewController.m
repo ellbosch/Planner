@@ -37,6 +37,14 @@
 {
     [super viewDidLoad];
     
+    
+    // create UIGestureRecognizer, which is used to unlock the alarm
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(unlockAlarm)];
+    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:gestureRecognizer];
+
+    
     alarmTimeLabel.adjustsFontSizeToFitWidth = YES;
     alarmTimeLabel.text = self.alarmTimeString;
     NSLog(@"new view time: %@", self.alarmTimeString);
@@ -81,6 +89,12 @@
     currentTime.text = [Dateformat stringFromDate:StrDate];
 }
 
+#pragma mark - Unlock Alarm
+
+-(void)unlockAlarm
+{
+    NSLog(@"SWIPE DETECTION");
+}
 
 #pragma mark Timer
 - (void)fireTimer:(id)sender {

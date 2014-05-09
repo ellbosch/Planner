@@ -12,7 +12,6 @@
 @interface WakeUpViewController () {
    // boolean value ensures weather narration only happens once
     BOOL hasNarratedWeather;
-    BOOL isLocked;
 }
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -44,12 +43,6 @@
     
     // instantiate hasNarrated and isLocked
     hasNarratedWeather = false;
-    isLocked = true;
-    
-    // create UIGestureRecognizer, which is used to unlock the alarm
-    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(unlockAlarm)];
-    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:gestureRecognizer];
     
 	self.screenHeight = [UIScreen mainScreen].bounds.size.height;
   /*
@@ -177,13 +170,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Unlock Alarm
-
--(void)unlockAlarm
-{
-    NSLog(@"SWIPE DETECTION");
 }
 
 #pragma mark - Narration
