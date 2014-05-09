@@ -7,7 +7,7 @@
 //
 
 #import "AlarmEnabledViewController.h"
-#import "WakeUpViewController.h"
+#import "AlarmActivatedViewController.h"
 
 @interface AlarmEnabledViewController ()
 {
@@ -39,6 +39,7 @@
     alarmTimeLabel.adjustsFontSizeToFitWidth = YES;
     alarmTimeLabel.text = self.alarmTimeString;
     NSLog(@"new view time: %@", self.alarmTimeString);
+    
     // schedule timer to go off for alarm
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:*(self.alarmTimeInterval)
                                                       target:self
@@ -63,7 +64,6 @@
 
 #pragma mark Timer
 - (void)fireTimer:(id)sender {
-    NSLog(@"FIRE IN THE HOLE!!!");
     if (self.alarmSong) {
         // Used media picker to choose a song
         MPMusicPlayerController *musicPlayerController = [MPMusicPlayerController applicationMusicPlayer];
@@ -80,12 +80,14 @@
     }
 }
 
-#pragma mark - DELETE THIS IT SIMULATES ALARM WITH BUTTON
+#pragma mark - Show Alarm Activated View
 
 - (IBAction)pressSimulateAlarmButton:(id)sender
 {
-    WakeUpViewController *wakeUpViewController = [[WakeUpViewController alloc] init];
-    [self presentViewController:wakeUpViewController animated:YES completion:nil];
+    UIStoryboard *storyBoard = self.storyboard;
+    AlarmActivatedViewController *alarmActivatedViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
+    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];   
+    
 }
 
 @end
