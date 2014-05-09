@@ -7,11 +7,14 @@
 //
 
 #import "AlarmActivatedViewController.h"
+#import "WakeUpViewController.h"
 
 @interface AlarmActivatedViewController ()
 {
     IBOutlet UILabel *currentTime;
 }
+
+- (IBAction)simulateUnlockingAlarm:(id)sender;
 
 @end
 
@@ -51,6 +54,12 @@
     NSDateFormatter *Dateformat = [[NSDateFormatter alloc]init];
     [Dateformat setDateFormat:@"HH:mm"];
     currentTime.text = [Dateformat stringFromDate:StrDate];
+}
+
+- (IBAction)simulateUnlockingAlarm:(id)sender
+{
+    WakeUpViewController *wakeUpViewController = [[WakeUpViewController alloc] init];
+    [self presentViewController:wakeUpViewController animated:YES completion:nil];
 }
 
 /*

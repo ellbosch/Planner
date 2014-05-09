@@ -85,7 +85,7 @@
 - (IBAction)pressSimulateAlarmButton:(id)sender
 {
     UIStoryboard *storyBoard = self.storyboard;
-    AlarmActivatedViewController *alarmActivatedViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
+    AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
     [self presentViewController:alarmActivatedViewController animated:YES completion:nil];   
     
 }
