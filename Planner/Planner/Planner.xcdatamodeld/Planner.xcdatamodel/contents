@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Entity" syncable="YES"/>
+    <entity name="Alarm" syncable="YES">
+        <attribute name="numTimesSelected" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Entity" positionX="-63" positionY="-18" width="128" height="45"/>
+        <element name="Alarm" positionX="0" positionY="0" width="128" height="75"/>
     </elements>
 </model>

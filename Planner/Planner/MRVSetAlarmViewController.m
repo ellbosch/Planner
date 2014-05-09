@@ -8,6 +8,9 @@
 
 #import "MRVSetAlarmViewController.h"
 #import "AlarmEnabledViewController.h"
+#import "AlarmWrapper.h"
+#import "Alarm.h"
+#import "MRVAppDelegate.h"
 
 @interface MRVSetAlarmViewController ()
 {
@@ -23,6 +26,9 @@
 // date picker
 - (void)pickerValueChanged:(id)sender;
 
+// application delegate
+@property (nonatomic, strong) MRVAppDelegate *appDelegate;
+
 
 @end
 
@@ -35,6 +41,14 @@
         // Custom initialization
     }
     return self;
+}
+
+// lazy instantiate the app delegate
+- (MRVAppDelegate *)appDelegate {
+    if (!_appDelegate) {
+        _appDelegate = (MRVAppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return _appDelegate;
 }
 
 - (void)viewDidLoad
@@ -101,6 +115,30 @@
     notification.timeZone = [NSTimeZone timeZoneWithName:@"America/New_York"];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
      */
+    
+    
+    
+    /*** Add alarm to core data ***/
+    
+    // check if time already exists
+    Alarm *existingAlarm = [self.appDelegate getAlarmFromTime:_userSelectedTime];
+    if (existingAlarm) {
+        existingAlarm.numTimesSelected = existingAlarm.numTimesSelected + 1;
+    } else {
+        // create new alarm object
+        AlarmWrapper *alarm = [[AlarmWrapper alloc] init];
+        alarm.time = _userSelectedTime;
+        alarm.numTimesSelected = 0;
+        if (![self.appDelegate postAlarmFromWrapper:alarm]) {
+            UIAlertView *somethingWrong = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Something was wrong" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [somethingWrong show];
+        }
+    }
+        
+
+    
+    
+    
     
     
     UIStoryboard *storyBoard = self.storyboard;
