@@ -118,8 +118,10 @@
     
     
     
-    /*** Add alarm to core data ***/
+   //DELETE THESE COMMENT MARKS!!
     
+    /*** Add alarm to core data ***/
+   /*
     // check if time already exists
     Alarm *existingAlarm = [self.appDelegate getAlarmFromTime:_userSelectedTime];
     if (existingAlarm) {
@@ -136,7 +138,7 @@
     }
         
 
-    
+    */
     
     
     
