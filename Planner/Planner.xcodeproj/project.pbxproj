@@ -31,6 +31,9 @@
 		8B3B2AB31905582900603E85 /* WakeUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3B2AB21905582900603E85 /* WakeUpViewController.m */; };
 		8B3B2AB519055A6C00603E85 /* Constellation.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 8B3B2AB419055A6C00603E85 /* Constellation.m4r */; };
 		8B3B2AB81905945600603E85 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3B2AB71905945600603E85 /* WeatherModel.m */; };
+		8BFAA2D2191CD6B8002C7406 /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFAA2CD191CD6B8002C7406 /* Alarm.m */; };
+		8BFAA2D3191CD6B8002C7406 /* AlarmWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFAA2CF191CD6B8002C7406 /* AlarmWrapper.m */; };
+		8BFAA2D4191CD6B8002C7406 /* PastAlarmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFAA2D1191CD6B8002C7406 /* PastAlarmsViewController.m */; };
 		9FAC38F1A8E343B590DE2704 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C7A7246194A6295DB3245 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +84,12 @@
 		8B3B2AB419055A6C00603E85 /* Constellation.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = Constellation.m4r; sourceTree = "<group>"; };
 		8B3B2AB61905945600603E85 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		8B3B2AB71905945600603E85 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
+		8BFAA2CC191CD6B7002C7406 /* Alarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alarm.h; sourceTree = "<group>"; };
+		8BFAA2CD191CD6B8002C7406 /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
+		8BFAA2CE191CD6B8002C7406 /* AlarmWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmWrapper.h; sourceTree = "<group>"; };
+		8BFAA2CF191CD6B8002C7406 /* AlarmWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmWrapper.m; sourceTree = "<group>"; };
+		8BFAA2D0191CD6B8002C7406 /* PastAlarmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastAlarmsViewController.h; sourceTree = "<group>"; };
+		8BFAA2D1191CD6B8002C7406 /* PastAlarmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastAlarmsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +155,12 @@
 		295583171902F945004704C8 /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				8BFAA2CC191CD6B7002C7406 /* Alarm.h */,
+				8BFAA2CD191CD6B8002C7406 /* Alarm.m */,
+				8BFAA2CE191CD6B8002C7406 /* AlarmWrapper.h */,
+				8BFAA2CF191CD6B8002C7406 /* AlarmWrapper.m */,
+				8BFAA2D0191CD6B8002C7406 /* PastAlarmsViewController.h */,
+				8BFAA2D1191CD6B8002C7406 /* PastAlarmsViewController.m */,
 				8B3B2AA81904454300603E85 /* AlarmEnabledViewController.h */,
 				8B3B2AA91904454300603E85 /* AlarmEnabledViewController.m */,
 				295583201902F945004704C8 /* MRVAppDelegate.h */,
@@ -342,15 +357,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				295583221902F945004704C8 /* MRVAppDelegate.m in Sources */,
+				8BFAA2D2191CD6B8002C7406 /* Alarm.m in Sources */,
 				2955831E1902F945004704C8 /* main.m in Sources */,
 				295583251902F945004704C8 /* Planner.xcdatamodeld in Sources */,
 				295583481902FAA4004704C8 /* MRVSetAlarmViewController.m in Sources */,
 				8B2EB4851908E64A0083F59C /* WeatherManager.m in Sources */,
 				8B2EB4821908DD860083F59C /* WeatherClient.m in Sources */,
+				8BFAA2D4191CD6B8002C7406 /* PastAlarmsViewController.m in Sources */,
 				8B2EB44E19085E9A0083F59C /* DailyForecast.m in Sources */,
 				8B3B2AAA1904454300603E85 /* AlarmEnabledViewController.m in Sources */,
 				8B3B2AB81905945600603E85 /* WeatherModel.m in Sources */,
 				8B3B2AB31905582900603E85 /* WakeUpViewController.m in Sources */,
+				8BFAA2D3191CD6B8002C7406 /* AlarmWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
