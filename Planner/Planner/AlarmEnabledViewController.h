@@ -13,9 +13,6 @@
 @interface AlarmEnabledViewController : UIViewController <AVAudioPlayerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSString *alarmTimeString;
-@property NSTimeInterval *alarmTimeInterval;
 @property MPMediaItemCollection *alarmSong;
-
-//- (void)setAlarmTime:(NSString *)time;
 
 @end

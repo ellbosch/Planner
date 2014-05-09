@@ -146,7 +146,6 @@
     UIStoryboard *storyBoard = self.storyboard;
     AlarmEnabledViewController *alarmEnabledViewController = (AlarmEnabledViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmEnabledViewController"];
     alarmEnabledViewController.alarmTimeString = _userSelectedTime;
-    alarmEnabledViewController.alarmTimeInterval = &(timeInterval);
     alarmEnabledViewController.alarmSong = _userSelectedSong;
     [self presentViewController:alarmEnabledViewController animated:YES completion:nil];
 }

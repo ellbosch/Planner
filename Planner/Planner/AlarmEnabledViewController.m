@@ -13,11 +13,15 @@
 {
     IBOutlet UILabel *currentTime;
     IBOutlet UILabel *alarmTimeLabel;
+    bool isAlarmDeactivated;
 }
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
-- (void)fireTimer:(id)sender;
+//- (void)fireTimer:(id)sender;
+
+
+- (void)alarmDeactivates;
 - (IBAction)pressSimulateAlarmButton:(id)sender;
 
 @end
@@ -37,6 +41,7 @@
 {
     [super viewDidLoad];
     
+    isAlarmDeactivated = false;
     
     // create UIGestureRecognizer, which is used to unlock the alarm
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -57,14 +62,6 @@
                                    selector:@selector(updateTime:)
                                    userInfo:nil
                                     repeats:YES];
-
-    
-    // schedule timer to go off for alarm
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:*(self.alarmTimeInterval)
-                                                      target:self
-                                                    selector:@selector(fireTimer:)
-                                                    userInfo:nil
-                                                     repeats:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,21 +69,21 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
-- (void)setAlarmTime:(NSString *)time
-{
-    // Set timeLabel
-    alarmTimeLabel.text = time;
-    NSLog(@"TIME!! %@", time);
-}
-*/
 
-- (void) updateTime:(id)sender
+- (void)updateTime:(id)sender
 {
     NSDate *StrDate = [NSDate date];
     NSDateFormatter *Dateformat = [[NSDateFormatter alloc]init];
     [Dateformat setDateFormat:@"HH:mm"];
     currentTime.text = [Dateformat stringFromDate:StrDate];
+    
+    // check to see if alarm should go off
+    if ([currentTime.text isEqualToString:alarmTimeLabel.text] && !isAlarmDeactivated) {
+        // set to true so this isn't called again
+        isAlarmDeactivated = true;
+        
+        [self alarmDeactivates];
+    }
 }
 
 #pragma mark - Unlock Alarm
@@ -96,32 +93,34 @@
     NSLog(@"SWIPE DETECTION");
 }
 
-#pragma mark Timer
-- (void)fireTimer:(id)sender {
+#pragma mark - Show Alarm Activated View
+
+- (void)alarmDeactivates
+{
     if (self.alarmSong) {
         // Used media picker to choose a song
         MPMusicPlayerController *musicPlayerController = [MPMusicPlayerController applicationMusicPlayer];
         [musicPlayerController setQueueWithItemCollection:_alarmSong];
         [musicPlayerController play];
     } else {
-        alarmTimeLabel.text = [NSString stringWithFormat:@"Wake up :)"];
-        [alarmTimeLabel sizeToFit];
         // play a default song
         NSString *path = [[NSBundle mainBundle] pathForResource:@"Constellation" ofType:@"m4r"];
         NSLog(@"music path: %@", path);
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
         [_audioPlayer play];
+        [self pressSimulateAlarmButton:self];
     }
+    
+    UIStoryboard *storyBoard = self.storyboard;
+    AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
+    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];
 }
-
-#pragma mark - Show Alarm Activated View
 
 - (IBAction)pressSimulateAlarmButton:(id)sender
 {
     UIStoryboard *storyBoard = self.storyboard;
     AlarmActivatedViewController *alarmActivatedViewController = (AlarmActivatedViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"alarmActivatedViewController"];
-    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];   
-    
+    [self presentViewController:alarmActivatedViewController animated:YES completion:nil];
 }
 
 @end
