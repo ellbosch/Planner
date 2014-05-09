@@ -11,6 +11,7 @@
 
 @interface AlarmEnabledViewController ()
 {
+    IBOutlet UILabel *currentTime;
     IBOutlet UILabel *alarmTimeLabel;
 }
 
@@ -40,6 +41,16 @@
     alarmTimeLabel.text = self.alarmTimeString;
     NSLog(@"new view time: %@", self.alarmTimeString);
     
+    
+    // instantiate clock label
+    currentTime.adjustsFontSizeToFitWidth = YES;
+    [NSTimer scheduledTimerWithTimeInterval:1.0f // 1 second
+                                     target:self
+                                   selector:@selector(updateTime:)
+                                   userInfo:nil
+                                    repeats:YES];
+
+    
     // schedule timer to go off for alarm
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:*(self.alarmTimeInterval)
                                                       target:self
@@ -61,6 +72,15 @@
     NSLog(@"TIME!! %@", time);
 }
 */
+
+- (void) updateTime:(id)sender
+{
+    NSDate *StrDate = [NSDate date];
+    NSDateFormatter *Dateformat = [[NSDateFormatter alloc]init];
+    [Dateformat setDateFormat:@"HH:mm"];
+    currentTime.text = [Dateformat stringFromDate:StrDate];
+}
+
 
 #pragma mark Timer
 - (void)fireTimer:(id)sender {

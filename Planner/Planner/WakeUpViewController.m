@@ -65,7 +65,7 @@
     [self.view addSubview:self.blurredImageView];
     */
     
-    /*
+
     self.tableView = [[UITableView alloc] init];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -167,7 +167,6 @@
     
     [[WeatherManager sharedManager] findCurrentLocation];
      
-     */
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
