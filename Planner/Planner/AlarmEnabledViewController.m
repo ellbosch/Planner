@@ -54,7 +54,6 @@
     alarmTimeLabel.text = self.alarmTimeString;
     NSLog(@"new view time: %@", self.alarmTimeString);
     
-    
     // instantiate clock label
     currentTime.adjustsFontSizeToFitWidth = YES;
     [NSTimer scheduledTimerWithTimeInterval:1.0f // 1 second

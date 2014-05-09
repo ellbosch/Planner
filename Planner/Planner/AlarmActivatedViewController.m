@@ -33,6 +33,12 @@
 {
     [super viewDidLoad];
     
+    // create UIGestureRecognizer, which is used to unlock the alarm
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(unlockAlarm)];
+    gestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:gestureRecognizer];
+    
     // instantiate clock label
     currentTime.adjustsFontSizeToFitWidth = YES;
     [NSTimer scheduledTimerWithTimeInterval:1.0f // 1 second
@@ -48,7 +54,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateTime:(id)sender
+- (void)unlockAlarm
+{
+    WakeUpViewController *wakeUpViewController = [[WakeUpViewController alloc] init];
+    [self presentViewController:wakeUpViewController animated:YES completion:nil];
+}
+
+- (void)updateTime:(id)sender
 {
     NSDate *StrDate = [NSDate date];
     NSDateFormatter *Dateformat = [[NSDateFormatter alloc]init];
